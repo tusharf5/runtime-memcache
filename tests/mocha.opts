@@ -1,0 +1,4 @@
+--recursive
+--require mocha-clean
+--require ts-node/register
+--reporter min
