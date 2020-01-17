@@ -1,46 +1,40 @@
-# in-memcache
+# runtime-memcache
 
-in-memcache is an in-memory key-value store for small chunks of arbitrary data (strings, objects) from results of database calls, API calls, or page rendering.
+**runtime-memcache** is a javascript runtime in-memory key-value store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc.
 
+When creating a new store, you can specify the strategy to delete items from the store. The default strategy is. `timeout` which keeps a cache key-pair in store for 2 hours by default (which is configurable)
 
-## Config
+## Installation
 
-| Property        | Description                                                             |
-| --------------- | ----------------------------------------------------------------------- |
-| `timeToClear`   | Time in milliseconds for which the store will persist a key-value pair  |
-| `strategy`      | Accepted Values - `timeout`                                             |
-
-
-## Caching Strategies
-
-| Strategy        | Description                                                                                     |
-| --------------- | ----------------------------------------------------------------------------------------------- |
-| `timeout`       | The objects in the cache store will be automatically deleted after the time specified in config |
-
+```shell
+npm install --save runtime-memcache
+# or using yarn
+yarn add runtime-memcache
+```
 
 ## Usage
 
-```shell
-npm install --save in-memcache
-# or using yarn
-yarn add in-memcache
-```
-
-Then require it in your module.
-
 ```javascript
-const createStore = require('in-memcache').default;
-```
+const createStore = require('runtime-memcache').default;
 
-## OR using ES6 imports
-
-```javascript
-import createStore from 'in-memcache';
+// or using es6 imports
+import createStore from 'runtime-memcache';
 ```
 
 ## API
 
-### Arguments as strings
+### Config
+
+| Property        | Description                                                             |
+| --------------- | ----------------------------------------------------------------------- |
+| `timeToClear`   | Time in milliseconds for which the store will persist a key-value pair as cache.  |
+| `strategy`      | Accepted Values - `timeout`                                             |
+
+### Caching Strategies
+
+| Strategy        | Description                                                                                     |
+| --------------- | ----------------------------------------------------------------------------------------------- |
+| `timeout`       | The objects in the cache store will be automatically deleted after the time specified in config |
 
 ```javascript
 const config = {
