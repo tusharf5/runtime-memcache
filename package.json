@@ -1,6 +1,16 @@
 {
   "name": "runtime-memcache",
   "version": "0.1.0",
+  "homepage": "https://www.npmjs.com/package/runtime-memcache",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tusharf5/runtime-memcache"
+  },
+  "author": {
+    "name": "Tushar Sharma",
+    "email": "ts17995@gmail.com",
+    "url": "https://tusharsharma.dev"
+  },
   "scripts": {
     "test": "mocha --opts tests/mocha.opts tests/**/*-test.{ts} && npm run lint && npm run build",
     "lint": "eslint 'src/**/*.{ts}' 'tests/**/*.{ts}'",
@@ -8,12 +18,21 @@
     "build": "rm -rf lib && tsc -p . && rm -fr lib/tests && mv lib/src/** lib/ && rm -fr lib/src",
     "prepublish": "npm run build"
   },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
   "license": "MIT",
-  "files": [
-    "lib/"
+  "main": "lib/index.js",
+  "keywords": [
+    "js cache",
+    "javascript cache",
+    "runtime cache",
+    "node cache",
+    "cache",
+    "memory cache",
+    "key store",
+    "lru",
+    "timeout"
   ],
+  "typings": "lib/index.d.ts",
+  "files": ["lib/"],
   "devDependencies": {
     "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.7",

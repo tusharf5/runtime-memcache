@@ -25,16 +25,22 @@ import createStore from 'runtime-memcache';
 
 ### Config
 
-| Property        | Description                                                             |
-| --------------- | ----------------------------------------------------------------------- |
+| Property        | Description                                                                       |
+| --------------- | --------------------------------------------------------------------------------- |
 | `timeToClear`   | Time in milliseconds for which the store will persist a key-value pair as cache.  |
-| `strategy`      | Accepted Values - `timeout`                                             |
+| `strategy`      | `timeout`                                                                         |
+
+<br />
 
 ### Caching Strategies
 
 | Strategy        | Description                                                                                     |
 | --------------- | ----------------------------------------------------------------------------------------------- |
 | `timeout`       | The objects in the cache store will be automatically deleted after the time specified in config |
+
+<br />
+
+### Example
 
 ```javascript
 const config = {
@@ -61,3 +67,9 @@ store.remove('key1'); // deletes the object associated with this key
 ## License
 
 MIT
+
+## Todos
+
+- Strategy Least Recently Used
+
+
