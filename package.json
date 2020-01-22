@@ -1,6 +1,6 @@
 {
   "name": "runtime-memcache",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "scripts": {
     "test": "mocha --opts tests/mocha.opts tests/**/*-test.{ts} && npm run lint && npm run build",
     "lint": "eslint 'src/**/*.{ts}' 'tests/**/*.{ts}'",
