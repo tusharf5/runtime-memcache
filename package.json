@@ -14,7 +14,7 @@
   "scripts": {
     "test": "mocha --opts tests/mocha.opts tests/**/*-test.{ts} && npm run lint && npm run build",
     "lint": "eslint 'src/**/*.{ts}' 'tests/**/*.{ts}'",
-    "format": "prettier --write 'src/**/*.{ts}' 'tests/**/*.{ts}'",
+    "format": "npx prettier --write '**/*.{ts,js,json}'",
     "build": "rm -rf lib && tsc -p . && rm -fr lib/tests && mv lib/src/** lib/ && rm -fr lib/src",
     "prepublish": "npm run build"
   },
@@ -32,7 +32,9 @@
     "timeout"
   ],
   "typings": "lib/index.d.ts",
-  "files": ["lib/"],
+  "files": [
+    "lib/"
+  ],
   "devDependencies": {
     "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.7",

@@ -25,18 +25,20 @@ import createStore from 'runtime-memcache';
 
 ### Config
 
-| Property        | Description                                                                       |
-| --------------- | --------------------------------------------------------------------------------- |
-| `timeToClear`   | Time in milliseconds for which the store will persist a key-value pair as cache.  |
-| `strategy`      | `timeout`                                                                         |
+| Property      | Description                                                                          | Type             | Default   |
+| ------------- | ------------------------------------------------------------------------------------ | ---------------- | --------- |
+| `timeToClear` | Time in **milliseconds** for which the store will persist a key-value pair as cache. | Number           | 7200000   |
+| `strategy`    | A Strategy to keep and delete items from the store                                   | `timeout`, `lru` | `timeout` |
+| `lruSize`     | Size of the cache store when the strategy is `lru`                                   | Number           | 500       |
 
 <br />
 
 ### Caching Strategies
 
-| Strategy        | Description                                                                                     |
-| --------------- | ----------------------------------------------------------------------------------------------- |
-| `timeout`       | The objects in the cache store will be automatically deleted after the time specified in config |
+| Strategy  | Description                                                                                                                        |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout` | The items in the cache store will be automatically deleted after when a specified amount of time has elapsed since an item was set |
+| `lru`     | This scheme removes the least recently used item when the store size is full                                                       |
 
 <br />
 
@@ -48,7 +50,7 @@ const config = {
   timeToClear: 7200000, // 2 hours
 };
 
-const store = createStore<'key1' | 'key2'>(config);
+const store = (createStore< 'key1') | ('key2', { name: string } > config);
 
 store.set('key1', {}); // store the object and associate it with the provided key
 
@@ -59,10 +61,10 @@ store.remove('key1'); // deletes the object associated with this key
 
 ## NPM Script Commands
 
-* `npm run test` -- Runs tests, lint and build.
-* `npm run lint` -- Runs ESLint.
-* `npm run format` -- Reformats all of the `.ts` and `.tsx` files with Prettier.
-* `npm run build` -- Regenerates `lib` folder that gets included into NPM module.
+- `npm run test` -- Runs tests, lint and build.
+- `npm run lint` -- Runs ESLint.
+- `npm run format` -- Reformats all of the `.ts` and `.tsx` files with Prettier.
+- `npm run build` -- Regenerates `lib` folder that gets included into NPM module.
 
 ## License
 
@@ -70,6 +72,5 @@ MIT
 
 ## Todos
 
-- Strategy Least Recently Used
-
-
+- <s>Timeout Strategy</s>
+- <s>Least Recently Used Strategy<s>

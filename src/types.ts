@@ -1,6 +1,7 @@
 export interface UserConfig {
   strategy?: 'timeout' | 'lru';
   timeToClear?: number;
+  lruSize?: number;
 }
 
 export interface CreateTimeoutResult<K> {
