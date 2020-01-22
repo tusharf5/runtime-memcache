@@ -1,12 +1,31 @@
-import createHashStore, { UserConfig, CreateHashStoreResult } from './hash-store';
+import createTimeoutStore from './timeout-store';
+import createLruStore from './lru-store';
 
-function createStore<K = any>(userConfig?: UserConfig): CreateHashStoreResult<K> {
-  let config = {};
+import { UserConfig, CreateStoreResult, GlobalConfig } from './types';
+
+export const defaultConfig: Required<GlobalConfig> = {
+  strategy: 'timeout',
+  timeToClear: 7200000, // 2 hours
+  lruSize: 500,
+};
+
+function createStore<K extends string | number | symbol = string, V = any>(
+  userConfig?: UserConfig,
+): CreateStoreResult<K> {
+  let userConfigVerf = {};
   if (typeof userConfig === 'object') {
-    config = userConfig;
+    userConfigVerf = userConfig;
   }
-  const store = createHashStore<K>(config);
-  return store;
+  const config: Required<GlobalConfig> = Object.assign({}, defaultConfig, userConfigVerf);
+
+  switch (config.strategy) {
+    case 'timeout':
+      return createTimeoutStore<K>(config);
+    case 'lru':
+      return createLruStore<K, V>(config);
+    default:
+      throw new Error(config.strategy + ' is not a supported strategy.');
+  }
 }
 
 export { UserConfig };

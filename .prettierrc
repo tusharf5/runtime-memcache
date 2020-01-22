@@ -1,12 +1,8 @@
 {
-  "parser": "typescript",
+  "bracketSpacing": true,
   "singleQuote": true,
-  "trailingComma": "es5",
-  "printWidth": 120,
-  "overrides": [
-    {
-      "files": [".*", "*.json"],
-      "options": { "parser": "json" }
-    }
-  ]
+  "jsxBracketSameLine": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "semi": true
 }
