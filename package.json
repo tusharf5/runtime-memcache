@@ -1,6 +1,6 @@
 {
   "name": "runtime-memcache",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://www.npmjs.com/package/runtime-memcache",
   "repository": {
     "type": "git",
