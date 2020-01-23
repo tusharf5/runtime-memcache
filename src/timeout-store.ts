@@ -1,32 +1,11 @@
-export interface UserConfig {
-  strategy?: 'timeout';
-  timeToClear?: number;
-}
-
-export interface CreateTimeoutResult<K> {
-  create(key: K, removeFromStore: (key: K) => boolean): void;
-  cancel(key: K): void;
-}
-
-export interface CreateHashStoreResult<K> {
-  get(key: K): any;
-  set(key: K, value: any): void;
-  remove(key: K): void;
-}
-
-export interface GlobalConfig extends UserConfig {}
-
-export const defaultConfig: GlobalConfig = {
-  strategy: 'timeout',
-  timeToClear: 7200000, // 2 hours
-};
+import { CreateTimeoutResult, CreateStoreResult, GlobalConfig } from './types';
 
 function createTimeout<K>(timeToClear: number): CreateTimeoutResult<K> {
   const timeouts = new Map<K, NodeJS.Timer>();
   return {
     create: function(key: K, removeFromStore: (key: K) => boolean) {
       const timer = setTimeout(() => {
-        removeFromStore(key); // dont need to delete key from timer as removing it from store will do that
+        removeFromStore(key); // dont need to delete key from timer here as removing it from store will do that
       }, timeToClear);
       timeouts.set(key, timer);
     },
@@ -40,8 +19,7 @@ function createTimeout<K>(timeToClear: number): CreateTimeoutResult<K> {
   };
 }
 
-function createHashStore<K>(userConfig: UserConfig): CreateHashStoreResult<K> {
-  const config: GlobalConfig = Object.assign({}, defaultConfig, userConfig);
+function createStore<K>(config: GlobalConfig): CreateStoreResult<K> {
   const store = new Map<K, any>();
   const timer = createTimeout<K>(config.timeToClear);
   function get(key: K) {
@@ -71,4 +49,4 @@ function createHashStore<K>(userConfig: UserConfig): CreateHashStoreResult<K> {
   };
 }
 
-export default createHashStore;
+export default createStore;
