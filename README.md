@@ -1,6 +1,6 @@
 # runtime-memcache
 
-runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc.
+runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It supports 
 
 When creating a new cache store, you can specify the strategy to evict items from the store. The default strategy is. `timeout` which keeps a cache key-pair in store for 2 hours by default (which is configurable)
 
@@ -30,6 +30,7 @@ import createStore from 'runtime-memcache';
 | `timeToClear` | Time in **milliseconds** for which the store will keep an item when the strategy is `timeout` | Number           | 7200000   |
 | `strategy`    | A Strategy to evict items from the store                                                      | `timeout`, `lru` | `timeout` |
 | `lruSize`     | Size of the cache store when the strategy is `lru`                                            | Number           | 500       |
+| `mruSize`     | Size of the cache store when the strategy is `mru`                                            | Number           | 500       |
 
 <br />
 
@@ -38,7 +39,8 @@ import createStore from 'runtime-memcache';
 | Strategy  | Description                                                                                                                 |
 | --------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `timeout` | The items in the cache store will be automatically evicted after a fixed amount of time has elapsed since that item was set |
-| `lru`     | This scheme evicts the least recently used item when the store size is full                                                 |
+| `lru`     | This scheme evicts the **least recently used** item when the store size is full                                                 |
+| `mru`     | This scheme evicts the **most recently used** item when the store size is full                                                  |
 
 <br />
 
@@ -73,7 +75,7 @@ const config = {
 
 const userCache = createStore(config);
 
-function loginUser(userId: string) {
+async function loginUser(userId: string) {
   if (userCache.get(id)) {
     return userCache.get(id);
   }
@@ -101,8 +103,8 @@ MIT
 
 - <s>Timeout Strategy (TR)</s>
 - <s>Least Recently Used Strategy (LRU)</s>
-- Least Frequently Used Strategy (LRU)
-- Most Recently Used Strategy (MRU)
+- <s>Most Recently Used Strategy (MRU)</s>
+- Least Frequently Used Strategy (LFU)
 - Time Aware Least Recently Used Strategy (TLRU)
 - Random Eviction Strategy (RR)
 

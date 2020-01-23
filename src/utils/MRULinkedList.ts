@@ -18,8 +18,8 @@ class LinkedListNode<K extends string | number | symbol = string, V = any> {
 // remove O(1)
 // add O(1)
 // we add a new node to the head
-// on every access we move that node to head
-export class LRULinkedList<K extends string | number | symbol = string, V = any> {
+// on every access we move that node to tail as it is the mru node
+export class MRULinkedList<K extends string | number | symbol = string, V = any> {
   __size: number = 0;
 
   HEAD: LinkedListNode<K, V> | null;
@@ -37,6 +37,15 @@ export class LRULinkedList<K extends string | number | symbol = string, V = any>
     if (this.__size > this.limit) {
       this.shrinkList();
     }
+  }
+
+  moveToTail(node: LinkedListNode<K, V>): LinkedListNode<K, V> | null {
+    const nodeToMove = this.remove(node.id);
+    if (nodeToMove) {
+      const newNode = this.addNodeToTail(nodeToMove.id, nodeToMove.data);
+      return newNode;
+    }
+    return null;
   }
 
   moveToHead(node: LinkedListNode<K, V>): LinkedListNode<K, V> | null {
@@ -68,6 +77,35 @@ export class LRULinkedList<K extends string | number | symbol = string, V = any>
       this.HEAD = newNode;
       if (!this.TAIL) {
         this.TAIL = newNode;
+      }
+      this.positions[id] = newNode;
+      this.size++;
+      return newNode;
+    }
+  }
+
+  // mru
+  addNodeToTail(id: K, data: V): LinkedListNode<K, V> {
+    // if node already exists move it to HEAD (MRU)
+    if (this.positions[id]) {
+      const node = this.moveToTail(this.positions[id]);
+      return node;
+    }
+    if (this.TAIL) {
+      let oldTail = this.TAIL;
+      const newTail = new LinkedListNode<K, V>(id, data);
+      newTail.prev = oldTail;
+      newTail.next = null;
+      oldTail.next = newTail;
+      this.TAIL = newTail;
+      this.positions[id] = newTail;
+      this.size++;
+      return newTail;
+    } else {
+      const newNode = new LinkedListNode<K, V>(id, data);
+      this.TAIL = newNode;
+      if (!this.HEAD) {
+        this.HEAD = newNode;
       }
       this.positions[id] = newNode;
       this.size++;
@@ -153,7 +191,8 @@ export class LRULinkedList<K extends string | number | symbol = string, V = any>
   get(id: K): V | null {
     const node = this.positions[id];
     if (node) {
-      const newHeadNode = this.moveToHead(node);
+      // mru
+      const newHeadNode = this.moveToTail(node);
       if (newHeadNode) {
         return newHeadNode.data;
       }
@@ -165,6 +204,6 @@ export class LRULinkedList<K extends string | number | symbol = string, V = any>
   constructor(config: Required<GlobalConfig>) {
     this.HEAD = null;
     this.TAIL = null;
-    this.limit = config.lruSize;
+    this.limit = config.mruSize;
   }
 }
