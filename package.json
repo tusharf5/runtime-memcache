@@ -29,7 +29,8 @@
     "memory cache",
     "key store",
     "lru",
-    "timeout"
+    "timeout",
+    "mru"
   ],
   "typings": "lib/index.d.ts",
   "files": [

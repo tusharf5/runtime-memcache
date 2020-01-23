@@ -1,5 +1,6 @@
 import createTimeoutStore from './timeout-store';
 import createLruStore from './lru-store';
+import createMruStore from './mru-store';
 
 import { UserConfig, CreateStoreResult, GlobalConfig } from './types';
 
@@ -7,6 +8,7 @@ export const defaultConfig: Required<GlobalConfig> = {
   strategy: 'timeout',
   timeToClear: 7200000, // 2 hours
   lruSize: 500,
+  mruSize: 500,
 };
 
 function createStore<K extends string | number | symbol = string, V = any>(
@@ -23,6 +25,8 @@ function createStore<K extends string | number | symbol = string, V = any>(
       return createTimeoutStore<K>(config);
     case 'lru':
       return createLruStore<K, V>(config);
+    case 'mru':
+      return createMruStore<K, V>(config);
     default:
       throw new Error(config.strategy + ' is not a supported strategy.');
   }

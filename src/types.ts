@@ -1,7 +1,8 @@
 export interface UserConfig {
-  strategy?: 'timeout' | 'lru';
+  strategy?: 'timeout' | 'lru' | 'mru';
   timeToClear?: number;
   lruSize?: number;
+  mruSize?: number;
 }
 
 export interface CreateTimeoutResult<K> {
