@@ -25,12 +25,12 @@ import createStore from 'runtime-memcache';
 
 ### Config
 
-| Property      | Description                                                                                   | Type             | Default   |
-| ------------- | --------------------------------------------------------------------------------------------- | ---------------- | --------- |
-| `timeToClear` | Time in **milliseconds** for which the store will keep an item when the strategy is `timeout` | Number           | 7200000   |
-| `strategy`    | A Strategy to evict items from the store                                                      | `timeout`, `lru` | `timeout` |
-| `lruSize`     | Size of the cache store when the strategy is `lru`                                            | Number           | 500       |
-| `mruSize`     | Size of the cache store when the strategy is `mru`                                            | Number           | 500       |
+| Property      | Description                                                                                   | Type                    | Default   |
+| ------------- | --------------------------------------------------------------------------------------------- | ----------------------- | --------- |
+| `timeToClear` | Time in **milliseconds** for which the store will keep an item when the strategy is `timeout` | Number                  | 7200000   |
+| `strategy`    | A Strategy to evict items from the store                                                      | `timeout`, `lru`, `mru` | `timeout` |
+| `lruSize`     | Size of the cache store when the strategy is `lru`                                            | Number                  | 500       |
+| `mruSize`     | Size of the cache store when the strategy is `mru`                                            | Number                  | 500       |
 
 <br />
 
@@ -39,8 +39,8 @@ import createStore from 'runtime-memcache';
 | Strategy  | Description                                                                                                                 |
 | --------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `timeout` | The items in the cache store will be automatically evicted after a fixed amount of time has elapsed since that item was set |
-| `lru`     | This scheme evicts the **least recently used** item when the store size is full                                                 |
-| `mru`     | This scheme evicts the **most recently used** item when the store size is full                                                  |
+| `lru`     | This scheme evicts the **least recently used** item when the store size is full                                             |
+| `mru`     | This scheme evicts the **most recently used** item when the store size is full                                              |
 
 <br />
 
