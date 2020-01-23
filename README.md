@@ -2,9 +2,9 @@
 
 ![](https://img.shields.io/npm/l/runtime-memcache) ![](https://img.shields.io/npm/dt/runtime-memcache) ![](https://img.shields.io/npm/v/runtime-memcache) ![](https://img.shields.io/bundlephobia/minzip/runtime-memcache)
 
-runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc.
+runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It is written in Typescript and supports many commonly used caching strategies.
 
-When creating a new cache store, you can specify the strategy to evict items from the store. The default strategy is. `timeout` which keeps a cache key-pair in store for 2 hours by default (which is configurable)
+When creating a new cache store, you can specify the strategy to evict items from the store. The default strategy is `timeout` which keeps a cache key-pair in store for 2 hours by default (which is configurable)
 
 ## Installation
 
@@ -25,7 +25,17 @@ import createStore from 'runtime-memcache';
 
 ## API
 
-### Config
+Calling the `createStore` function returns an object with the following properties.
+
+| Property        | Description                      |
+| --------------- | -------------------------------- |
+| `get(id)`       | Retrieves an item from the store |
+| `set(id, data)` | Sets an item in the store        |
+| `remove(id)`    | Removes an item from the store   |
+
+## Config
+
+`createStore` takes an optional config object as an argument with the following properties.
 
 | Property      | Description                                                                                   | Type                    | Default   |
 | ------------- | --------------------------------------------------------------------------------------------- | ----------------------- | --------- |
@@ -34,9 +44,9 @@ import createStore from 'runtime-memcache';
 | `lruSize`     | Size of the cache store when the strategy is `lru`                                            | Number                  | 500       |
 | `mruSize`     | Size of the cache store when the strategy is `mru`                                            | Number                  | 500       |
 
-<br />
+## Caching Strategies
 
-### Caching Strategies
+Following caching schemes are supported.
 
 | Strategy  | Description                                                                                                                 |
 | --------- | --------------------------------------------------------------------------------------------------------------------------- |
@@ -44,9 +54,15 @@ import createStore from 'runtime-memcache';
 | `lru`     | This scheme evicts the **least recently used** item when the store size is full                                             |
 | `mru`     | This scheme evicts the **most recently used** item when the store size is full                                              |
 
-<br />
+## Time Complexity
 
-### Example
+| Strategy | Method                 | Complexity       |
+| -------- | ---------------------- | ---------------- |
+| timeout  | `set`, `get`, `remove` | O(1), O(1), O(1) |
+| lru      | `set`, `get`, `remove` | O(1), O(1), O(1) |
+| mru      | `set`, `get`, `remove` | O(1), O(1), O(1) |
+
+## Example
 
 ```typescript
 import createStore from 'runtime-memcache';
@@ -96,10 +112,6 @@ async function loginUser(userId: string) {
 - `npm run lint` -- Runs ESLint.
 - `npm run format` -- Reformats all of the `.ts` and `.tsx` files with Prettier.
 - `npm run build` -- Regenerates `lib` folder that gets included into NPM module.
-
-## License
-
-MIT
 
 ## Todos
 
