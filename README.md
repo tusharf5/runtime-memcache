@@ -1,6 +1,6 @@
 # runtime-memcache
 
-runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It supports 
+runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc.
 
 When creating a new cache store, you can specify the strategy to evict items from the store. The default strategy is. `timeout` which keeps a cache key-pair in store for 2 hours by default (which is configurable)
 
