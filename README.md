@@ -2,9 +2,9 @@
 
 ![](https://img.shields.io/npm/l/runtime-memcache) ![](https://img.shields.io/npm/dt/runtime-memcache) ![](https://img.shields.io/npm/v/runtime-memcache) ![](https://img.shields.io/bundlephobia/minzip/runtime-memcache)
 
-runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It is written in Typescript and supports many commonly used caching strategies.
+runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It is written in Typescript and supports many commonly used caching policies.
 
-When creating a new cache store, you can specify the strategy to evict items from the store. The default strategy is `timeout` which keeps a cache key-pair in store for 2 hours by default (which is configurable)
+When creating a new cache store, you can specify the policy to evict items from the store. The default policy is `lru` (Least Recently Used)
 
 ## Installation
 
@@ -37,30 +37,31 @@ Calling the `createStore` function returns an object with the following properti
 
 `createStore` takes an optional config object as an argument with the following properties.
 
-| Property      | Description                                                                                   | Type                    | Default   |
-| ------------- | --------------------------------------------------------------------------------------------- | ----------------------- | --------- |
-| `timeToClear` | Time in **milliseconds** for which the store will keep an item when the strategy is `timeout` | Number                  | 7200000   |
-| `strategy`    | A Strategy to evict items from the store                                                      | `timeout`, `lru`, `mru` | `timeout` |
-| `lruSize`     | Size of the cache store when the strategy is `lru`                                            | Number                  | 500       |
-| `mruSize`     | Size of the cache store when the strategy is `mru`                                            | Number                  | 500       |
+| Property      | Description                                                                                 | Type                    | Default |
+| ------------- | ------------------------------------------------------------------------------------------- | ----------------------- | ------- |
+| `timeToClear` | Time in **milliseconds** for which the store will keep an item when the policy is `timeout` | Number                  | 7200000 |
+| `strategy`    | **Deprecated - use policy option**                                                          | `timeout`, `lru`, `mru` | `lru`   |
+| `policy`      | A Policy to evict items from the store                                                      | `timeout`, `lru`, `mru` | `lru`   |
+| `lruSize`     | Size of the cache store when the policy is `lru`                                            | Number                  | 500     |
+| `mruSize`     | Size of the cache store when the policy is `mru`                                            | Number                  | 500     |
 
-## Caching Strategies
+## Caching Policies
 
-Following caching schemes are supported.
+Following caching policies are supported.
 
-| Strategy  | Description                                                                                                                 |
-| --------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `timeout` | The items in the cache store will be automatically evicted after a fixed amount of time has elapsed since that item was set |
-| `lru`     | This scheme evicts the **least recently used** item when the store size is full                                             |
-| `mru`     | This scheme evicts the **most recently used** item when the store size is full                                              |
+| Policy    | Name                | Description                                                                                                                 |
+| --------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `timeout` | Timeout             | The items in the cache store will be automatically evicted after a fixed amount of time has elapsed since that item was set |
+| `lru`     | Least Recently Used | This policy evicts the **least recently used** items when the store size is full                                            |
+| `mru`     | Most Recently Used  | This policy evicts the **most recently used** items when the store size is full                                             |
 
 ## Time Complexity
 
-| Strategy | Method                 | Complexity       |
-| -------- | ---------------------- | ---------------- |
-| timeout  | `set`, `get`, `remove` | O(1), O(1), O(1) |
-| lru      | `set`, `get`, `remove` | O(1), O(1), O(1) |
-| mru      | `set`, `get`, `remove` | O(1), O(1), O(1) |
+| Policy  | Method                 | Complexity       |
+| ------- | ---------------------- | ---------------- |
+| timeout | `set`, `get`, `remove` | O(1), O(1), O(1) |
+| lru     | `set`, `get`, `remove` | O(1), O(1), O(1) |
+| mru     | `set`, `get`, `remove` | O(1), O(1), O(1) |
 
 ## Example
 
@@ -68,7 +69,7 @@ Following caching schemes are supported.
 import createStore from 'runtime-memcache';
 
 const config = {
-  strategy: 'timeout',
+  policy: 'timeout',
   timeToClear: 7200000, // 2 hours
 };
 
@@ -87,7 +88,7 @@ store.remove('key1'); // deletes the object associated with this key
 import createStore from 'runtime-memcache';
 
 const config = {
-  strategy: 'lru',
+  policy: 'lru',
   lruSize: 300, // cache a maximum of 300 users at a given time
 };
 
@@ -115,11 +116,11 @@ async function loginUser(userId: string) {
 
 ## Todos
 
-- <s>Timeout Strategy (TR)</s>
-- <s>Least Recently Used Strategy (LRU)</s>
-- <s>Most Recently Used Strategy (MRU)</s>
-- Least Frequently Used Strategy (LFU)
-- Time Aware Least Recently Used Strategy (TLRU)
-- Random Eviction Strategy (RR)
+- <s>Timeout Policy (TR)</s>
+- <s>Least Recently Used Policy (LRU)</s>
+- <s>Most Recently Used Policy (MRU)</s>
+- Least Frequently Used Policy (LFU)
+- Time Aware Least Recently Used Policy (TLRU)
+- Random Eviction Policy (RR)
 
-For more information on caching strategies read [this](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU)
+For more information on caching policies read [this](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU)

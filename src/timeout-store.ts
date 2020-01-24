@@ -1,4 +1,4 @@
-import { CreateTimeoutResult, CreateStoreResult, GlobalConfig } from './types';
+import { CreateTimeoutResult, Cache, GlobalConfig } from './types';
 
 function createTimeout<K>(timeToClear: number): CreateTimeoutResult<K> {
   const timeouts = new Map<K, NodeJS.Timer>();
@@ -19,7 +19,7 @@ function createTimeout<K>(timeToClear: number): CreateTimeoutResult<K> {
   };
 }
 
-function createStore<K>(config: GlobalConfig): CreateStoreResult<K> {
+function createStore<K>(config: GlobalConfig): Cache<K> {
   const store = new Map<K, any>();
   const timer = createTimeout<K>(config.timeToClear);
   function get(key: K) {

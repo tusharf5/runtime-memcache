@@ -1,7 +1,7 @@
 {
   "name": "runtime-memcache",
-  "version": "0.2.3",
-  "homepage": "https://www.npmjs.com/package/runtime-memcache",
+  "version": "1.0.0",
+  "homepage": "https://github.com/tusharf5/runtime-memcache",
   "repository": {
     "type": "git",
     "url": "https://github.com/tusharf5/runtime-memcache"

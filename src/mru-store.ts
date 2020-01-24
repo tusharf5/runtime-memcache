@@ -1,9 +1,9 @@
-import { CreateStoreResult, GlobalConfig } from './types';
+import { Cache, GlobalConfig } from './types';
 import { MRULinkedList } from './utils/MRULinkedList';
 
 function createStore<K extends string | number | symbol, V>(
   config: Required<GlobalConfig>,
-): CreateStoreResult<K> {
+): Cache<K> {
   const store = new MRULinkedList<K, V>(config);
 
   function get(key: K) {

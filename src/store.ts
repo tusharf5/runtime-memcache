@@ -2,25 +2,32 @@ import createTimeoutStore from './timeout-store';
 import createLruStore from './lru-store';
 import createMruStore from './mru-store';
 
-import { UserConfig, CreateStoreResult, GlobalConfig } from './types';
+import { Config, Cache, GlobalConfig } from './types';
 
 export const defaultConfig: Required<GlobalConfig> = {
-  strategy: 'timeout',
+  strategy: 'lru',
+  policy: 'lru',
   timeToClear: 7200000, // 2 hours
   lruSize: 500,
   mruSize: 500,
 };
 
 function createStore<K extends string | number | symbol = string, V = any>(
-  userConfig?: UserConfig,
-): CreateStoreResult<K> {
-  let userConfigVerf = {};
+  userConfig?: Config,
+): Cache<K> {
+  let userConfigVerf: Config = {};
   if (typeof userConfig === 'object') {
     userConfigVerf = userConfig;
   }
+  if (userConfigVerf.strategy) {
+    userConfigVerf.policy = userConfigVerf.policy || userConfigVerf.strategy;
+    console.warn(
+      'runtime-memcache:: Use the `policy` config option instead of `strategy`. `strategy` option is deprecated and will be removed in the next major version',
+    );
+  }
   const config: Required<GlobalConfig> = Object.assign({}, defaultConfig, userConfigVerf);
 
-  switch (config.strategy) {
+  switch (config.policy) {
     case 'timeout':
       return createTimeoutStore<K>(config);
     case 'lru':
@@ -28,10 +35,8 @@ function createStore<K extends string | number | symbol = string, V = any>(
     case 'mru':
       return createMruStore<K, V>(config);
     default:
-      throw new Error(config.strategy + ' is not a supported strategy.');
+      throw new Error(config.policy + ' is not a supported policy.');
   }
 }
-
-export { UserConfig };
 
 export default createStore;
