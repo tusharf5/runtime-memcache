@@ -23,8 +23,12 @@ function createStore<K extends string | number | symbol, V>(
     return store.has(key);
   }
 
-  function size() {
+  function size(): number {
     return store.size;
+  }
+
+  function keys(): K[] {
+    return store.keys();
   }
 
   function set(key: K, value: any) {
@@ -33,6 +37,7 @@ function createStore<K extends string | number | symbol, V>(
   }
 
   return {
+    keys,
     size,
     get,
     set,

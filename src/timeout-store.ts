@@ -44,6 +44,10 @@ function createStore<K>(config: GlobalConfig): Cache<K> {
     return store.has(key);
   }
 
+  function keys(): K[] {
+    return Array.from(store.keys());
+  }
+
   function set(key: K, value: any) {
     store.set(key, value);
     timer.create(key, remove);
@@ -51,6 +55,7 @@ function createStore<K>(config: GlobalConfig): Cache<K> {
   }
 
   return {
+    keys,
     size,
     has,
     get,

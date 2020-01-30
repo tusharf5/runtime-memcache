@@ -25,8 +25,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
   HEAD: LinkedListNode<K, V> | null;
   TAIL: LinkedListNode<K, V> | null;
   limit: number = 0;
-  // fixme type
-  positions: Record<any, LinkedListNode<K, V>> = {};
+  positions: Map<K, LinkedListNode<K, V>> = new Map<K, any>();
 
   get size() {
     return this.__size;
@@ -37,6 +36,10 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
     if (this.__size > this.limit) {
       this.shrinkList();
     }
+  }
+
+  keys(): K[] {
+    return Array.from(this.positions.keys());
   }
 
   moveToTail(node: LinkedListNode<K, V>): LinkedListNode<K, V> | null {
@@ -58,8 +61,8 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
   }
 
   addNodeToHead(id: K, data: V): LinkedListNode<K, V> {
-    if (this.positions[id]) {
-      const node = this.moveToHead(this.positions[id]);
+    if (this.positions.has(id)) {
+      const node = this.moveToHead(this.positions.get(id));
       return node;
     }
     if (this.HEAD) {
@@ -69,7 +72,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
       newHead.prev = null;
       oldHead.prev = newHead;
       this.HEAD = newHead;
-      this.positions[id] = newHead;
+      this.positions.set(id, newHead);
       this.size++;
       return newHead;
     } else {
@@ -78,7 +81,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
       if (!this.TAIL) {
         this.TAIL = newNode;
       }
-      this.positions[id] = newNode;
+      this.positions.set(id, newNode);
       this.size++;
       return newNode;
     }
@@ -87,8 +90,8 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
   // mru
   addNodeToTail(id: K, data: V): LinkedListNode<K, V> {
     // if node already exists move it to HEAD (MRU)
-    if (this.positions[id]) {
-      const node = this.moveToTail(this.positions[id]);
+    if (this.positions.has(id)) {
+      const node = this.moveToTail(this.positions.get(id));
       return node;
     }
     if (this.TAIL) {
@@ -98,7 +101,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
       newTail.next = null;
       oldTail.next = newTail;
       this.TAIL = newTail;
-      this.positions[id] = newTail;
+      this.positions.set(id, newTail);
       this.size++;
       return newTail;
     } else {
@@ -107,7 +110,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
       if (!this.HEAD) {
         this.HEAD = newNode;
       }
-      this.positions[id] = newNode;
+      this.positions.set(id, newNode);
       this.size++;
       return newNode;
     }
@@ -118,7 +121,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
       return null;
     }
 
-    const node = this.positions[id];
+    const node = this.positions.get(id);
     if (!node) {
       return null;
     }
@@ -131,7 +134,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
     if (prevNode && nextNode) {
       prevNode.next = nextNode;
       nextNode.prev = prevNode;
-      delete this.positions[id];
+      this.positions.delete(id);
       this.size--;
       return node;
     }
@@ -140,7 +143,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
     if (prevNode && !nextNode) {
       prevNode.next = null;
       this.TAIL = prevNode;
-      delete this.positions[id];
+      this.positions.delete(id);
       this.size--;
       return node;
     }
@@ -149,7 +152,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
     if (!prevNode && nextNode) {
       nextNode.prev = null;
       this.HEAD = nextNode;
-      delete this.positions[id];
+      this.positions.delete(id);
       this.size--;
       return node;
     }
@@ -158,7 +161,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
     if (!prevNode && !nextNode) {
       this.HEAD = null;
       this.TAIL = null;
-      delete this.positions[id];
+      this.positions.delete(id);
       this.size--;
       return node;
     }
@@ -170,7 +173,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
     const nodesToRemove = this.size - this.limit;
     let currentNode = this.TAIL;
     for (let i = 1; i <= nodesToRemove; i++) {
-      delete this.positions[currentNode.id];
+      this.positions.delete(currentNode.id);
       this.size--;
       currentNode = currentNode.prev;
     }
@@ -179,7 +182,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
   }
 
   has(id: K): boolean {
-    if (this.positions[id]) {
+    if (this.positions.has(id)) {
       return true;
     }
     return false;
@@ -196,7 +199,7 @@ export class MRULinkedList<K extends string | number | symbol = string, V = any>
   }
 
   get(id: K): V | null {
-    const node = this.positions[id];
+    const node = this.positions.get(id);
     if (node) {
       // mru
       const newHeadNode = this.moveToTail(node);

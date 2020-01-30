@@ -12,6 +12,7 @@ export interface CreateTimeoutResult<K> {
 }
 
 export interface Cache<K> {
+  keys(): K[];
   size(): number;
   has(key: K): any;
   get(key: K): any;
