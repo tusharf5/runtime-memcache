@@ -1,6 +1,6 @@
 {
   "name": "runtime-memcache",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/tusharf5/runtime-memcache",
   "repository": {
     "type": "git",
@@ -15,7 +15,7 @@
     "test": "jest",
     "lint": "eslint 'src/**/*.{ts}' 'tests/**/*.{ts}'",
     "format": "npx prettier --write '**/*.{ts,js,json}'",
-    "build": "rm -rf lib && tsc -p . && rm -fr lib/tests && mv lib/src/** lib/ && rm -fr lib/src",
+    "build": "rm -rf lib && tsc -p . && rm -rf lib/tests && rm -rf lib/src",
     "prepublish": "npm run build && npm run test"
   },
   "license": "MIT",
