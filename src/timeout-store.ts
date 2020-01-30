@@ -36,6 +36,14 @@ function createStore<K>(config: GlobalConfig): Cache<K> {
     return true;
   }
 
+  function has(key: K): boolean {
+    const val = store.get(key);
+    if (val) {
+      return true;
+    }
+    return false;
+  }
+
   function set(key: K, value: any) {
     store.set(key, value);
     timer.create(key, remove);
@@ -43,6 +51,7 @@ function createStore<K>(config: GlobalConfig): Cache<K> {
   }
 
   return {
+    has,
     get,
     set,
     remove,

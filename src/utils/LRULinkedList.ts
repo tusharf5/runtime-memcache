@@ -140,6 +140,13 @@ export class LRULinkedList<K extends string | number | symbol = string, V = any>
     this.TAIL = currentNode;
   }
 
+  has(id: K): boolean {
+    if (this.positions[id]) {
+      return true;
+    }
+    return false;
+  }
+
   traverse() {
     if (this.HEAD) {
       let currentNode = this.HEAD;

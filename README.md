@@ -27,11 +27,12 @@ import createStore from 'runtime-memcache';
 
 Calling the `createStore` function returns an object with the following properties.
 
-| Property        | Description                      |
-| --------------- | -------------------------------- |
-| `get(id)`       | Retrieves an item from the store |
-| `set(id, data)` | Sets an item in the store        |
-| `remove(id)`    | Removes an item from the store   |
+| Property        | Description                          |
+| --------------- | ------------------------------------ |
+| `get(id)`       | Retrieves an item from the store     |
+| `has(id)`       | Check if an item exists in the store |
+| `set(id, data)` | Sets an item in the store            |
+| `remove(id)`    | Removes an item from the store       |
 
 ## Config
 
@@ -73,11 +74,19 @@ const config = {
   timeToClear: 7200000, // 2 hours
 };
 
-const store = createStore<'key1' | 'key2', { name: string }>(config);
+interface CachedValue {
+  name: string;
+}
+
+type Keys = 'key1' | 'key2';
+
+const store = createStore<Keys, CachedValue>(config);
 
 store.set('key1', {}); // store the object and associate it with the provided key
 
 store.get('key1'); // retrieves the object associated with this key
+
+store.has('key1'); // returns true
 
 store.remove('key1'); // deletes the object associated with this key
 ```
@@ -95,7 +104,7 @@ const config = {
 const userCache = createStore(config);
 
 async function loginUser(userId: string) {
-  if (userCache.get(id)) {
+  if (userCache.has(id)) {
     return userCache.get(id);
   }
 

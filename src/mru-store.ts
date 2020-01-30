@@ -19,12 +19,17 @@ function createStore<K extends string | number | symbol, V>(
     return true;
   }
 
+  function has(key: K) {
+    return store.has(key);
+  }
+
   function set(key: K, value: any) {
     store.addNodeToHead(key, value);
     return true;
   }
 
   return {
+    has,
     get,
     set,
     remove,
