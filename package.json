@@ -16,7 +16,7 @@
     "lint": "eslint 'src/**/*.{ts}' 'tests/**/*.{ts}'",
     "format": "npx prettier --write '**/*.{ts,js,json}'",
     "build": "rm -rf lib && tsc -p . && rm -fr lib/tests && mv lib/src/** lib/ && rm -fr lib/src",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build && npm run test"
   },
   "license": "MIT",
   "main": "lib/index.js",
