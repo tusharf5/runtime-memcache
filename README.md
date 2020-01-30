@@ -27,12 +27,13 @@ import createStore from 'runtime-memcache';
 
 Calling the `createStore` function returns an object with the following properties.
 
-| Property        | Description                          |
-| --------------- | ------------------------------------ |
-| `get(id)`       | Retrieves an item from the store     |
-| `has(id)`       | Check if an item exists in the store |
-| `set(id, data)` | Sets an item in the store            |
-| `remove(id)`    | Removes an item from the store       |
+| Property        | Description                              |
+| --------------- | ---------------------------------------- |
+| `get(id)`       | Retrieves an item from the store         |
+| `has(id)`       | Check if an item exists in the store     |
+| `set(id, data)` | Sets an item in the store                |
+| `remove(id)`    | Removes an item from the store           |
+| `size()`        | Returns the size of the item cache store |
 
 ## Config
 
@@ -87,6 +88,8 @@ store.set('key1', {}); // store the object and associate it with the provided ke
 store.get('key1'); // retrieves the object associated with this key
 
 store.has('key1'); // returns true
+
+store.size(); // returns 1
 
 store.remove('key1'); // deletes the object associated with this key
 ```

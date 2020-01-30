@@ -23,12 +23,17 @@ function createStore<K extends string | number | symbol, V>(
     return store.has(key);
   }
 
+  function size() {
+    return store.size;
+  }
+
   function set(key: K, value: any) {
     store.addNodeToHead(key, value);
     return true;
   }
 
   return {
+    size,
     has,
     get,
     set,
