@@ -41,11 +41,7 @@ function createStore<K>(config: GlobalConfig): Cache<K> {
   }
 
   function has(key: K): boolean {
-    const val = store.get(key);
-    if (val) {
-      return true;
-    }
-    return false;
+    return store.has(key);
   }
 
   function set(key: K, value: any) {
