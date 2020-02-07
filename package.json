@@ -1,6 +1,7 @@
 {
   "name": "runtime-memcache",
   "version": "1.2.0",
+  "description": "A javascript runtime key-value cache store(lru,mru,timeout) for small chunks of arbitrary data (strings, objects, numbers)",
   "homepage": "https://github.com/tusharf5/runtime-memcache",
   "repository": {
     "type": "git",
