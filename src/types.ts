@@ -1,5 +1,5 @@
 export interface Config {
-  policy?: 'timeout' | 'lru' | 'mru';
+  policy?: 'timeout' | 'lru' | 'mru' | 'tlru';
   strategy?: 'timeout' | 'lru' | 'mru';
   timeToClear?: number;
   lruSize?: number;
@@ -7,7 +7,7 @@ export interface Config {
 }
 
 export interface CreateTimeoutResult<K> {
-  create(key: K, removeFromStore: (key: K) => boolean): void;
+  create(key: K, removeFromStore: (key: K) => any): void;
   cancel(key: K): void;
 }
 

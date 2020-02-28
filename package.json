@@ -1,6 +1,6 @@
 {
   "name": "runtime-memcache",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "A javascript runtime key-value cache store(lru,mru,timeout) for small chunks of arbitrary data (strings, objects, numbers)",
   "homepage": "https://github.com/tusharf5/runtime-memcache",
   "repository": {
@@ -13,7 +13,8 @@
     "url": "https://tusharsharma.dev"
   },
   "scripts": {
-    "test": "jest",
+    "test": "yarn build && jest --detectOpenHandles",
+    "dev": "yarn build && yarn test",
     "lint": "eslint 'src/**/*.{ts}' 'tests/**/*.{ts}'",
     "format": "npx prettier --write '**/*.{ts,js,json}'",
     "build": "rm -rf lib && tsc -p . && rm -rf lib/tests && rm -rf lib/src",

@@ -1,6 +1,7 @@
 import createTimeoutStore from './timeout-store';
 import createLruStore from './lru-store';
 import createMruStore from './mru-store';
+import createTLruStore from './tlru-store';
 
 import { Config, Cache, GlobalConfig } from './types';
 
@@ -34,6 +35,8 @@ function createStore<K extends string | number | symbol = string, V = any>(
       return createLruStore<K, V>(config);
     case 'mru':
       return createMruStore<K, V>(config);
+    case 'tlru':
+      return createTLruStore<K, V>(config);
     default:
       throw new Error(config.policy + ' is not a supported policy.');
   }

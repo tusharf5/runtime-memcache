@@ -40,23 +40,24 @@ Calling the `createStore` function returns an object with the following properti
 
 `createStore` takes an optional config object as an argument with the following properties.
 
-| Property      | Description                                                                                 | Type                    | Default |
-| ------------- | ------------------------------------------------------------------------------------------- | ----------------------- | ------- |
-| `timeToClear` | Time in **milliseconds** for which the store will keep an item when the policy is `timeout` | Number                  | 7200000 |
-| `strategy`    | **Deprecated - use policy option**                                                          | `timeout`, `lru`, `mru` | `lru`   |
-| `policy`      | A Policy to evict items from the store                                                      | `timeout`, `lru`, `mru` | `lru`   |
-| `lruSize`     | Size of the cache store when the policy is `lru`                                            | Number                  | 500     |
-| `mruSize`     | Size of the cache store when the policy is `mru`                                            | Number                  | 500     |
+| Property      | Description                                                                                           | Type                            | Default |
+| ------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- | ------- |
+| `timeToClear` | Time in **milliseconds** for which the store will keep an item when the policy is `timeout` or `tlru` | Number                          | 7200000 |
+| `strategy`    | **Deprecated - use policy option**                                                                    | -                               | -       |
+| `policy`      | A Policy to evict items from the store                                                                | `timeout`, `lru`, `mru`, `tlru` | `lru`   |
+| `lruSize`     | Size of the cache store when the policy is `lru` or `tlru`                                            | Number                          | 500     |
+| `mruSize`     | Size of the cache store when the policy is `mru`                                                      | Number                          | 500     |
 
 ## Caching Policies
 
 Following caching policies are supported.
 
-| Policy    | Name                | Description                                                                                                                 |
-| --------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| `timeout` | Timeout             | The items in the cache store will be automatically evicted after a fixed amount of time has elapsed since that item was set |
-| `lru`     | Least Recently Used | This policy evicts the **least recently used** items when the store size is full                                            |
-| `mru`     | Most Recently Used  | This policy evicts the **most recently used** items when the store size is full                                             |
+| Policy    | Name                           | Description                                                                                                                                                                      |
+| --------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `timeout` | Timeout                        | The items in the cache store will be automatically evicted after a fixed amount of time has elapsed since that item was set                                                      |
+| `lru`     | Least Recently Used            | This policy evicts the **least recently used** items when the store size is full                                                                                                 |
+| `tlru`    | Time Aware Least Recently Used | This policy evicts the **least recently used** items when the store size is full and also evict untouched items after a fixed amount of time has elapsed since that item was set |
+| `mru`     | Most Recently Used             | This policy evicts the **most recently used** items when the store size is full                                                                                                  |
 
 ## Time Complexity
 
@@ -64,6 +65,7 @@ Following caching policies are supported.
 | ------- | ---------------------- | ---------------- |
 | timeout | `set`, `get`, `remove` | O(1), O(1), O(1) |
 | lru     | `set`, `get`, `remove` | O(1), O(1), O(1) |
+| tlru    | `set`, `get`, `remove` | O(1), O(1), O(1) |
 | mru     | `set`, `get`, `remove` | O(1), O(1), O(1) |
 
 ## Example
@@ -135,7 +137,7 @@ async function loginUser(userId: string) {
 - <s>Least Recently Used Policy (LRU)</s>
 - <s>Most Recently Used Policy (MRU)</s>
 - Least Frequently Used Policy (LFU)
-- Time Aware Least Recently Used Policy (TLRU)
+- <s>Time Aware Least Recently Used Policy (TLRU)</s>
 - Random Eviction Policy (RR)
 
 For more information on caching policies read [this](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU)
