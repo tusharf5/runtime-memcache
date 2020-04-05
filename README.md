@@ -2,7 +2,7 @@
 
 ![LISCENCE](https://img.shields.io/npm/l/runtime-memcache) ![NPM Downloads](https://img.shields.io/npm/dt/runtime-memcache) ![NPM Version](https://img.shields.io/npm/v/runtime-memcache) ![Size](https://img.shields.io/bundlephobia/minzip/runtime-memcache)
 
-runtime-memcache is a javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It is written in Typescript and supports many commonly used caching policies.
+runtime-memcache is a **no dependency** javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It is written in Typescript and supports many commonly used caching policies.
 
 When creating a new cache store, you can specify the policy to evict items from the store. The default policy is `lru` (Least Recently Used)
 
