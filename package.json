@@ -1,6 +1,6 @@
 {
   "name": "runtime-memcache",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "A no dependency javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers)",
   "homepage": "https://github.com/tusharf5/runtime-memcache",
   "main": "./dist/umd/index.js",
@@ -24,7 +24,7 @@
     "lint": "eslint 'src/**/*.{ts}' 'tests/**/*.{ts}'",
     "format": "npx prettier --write '**/*.{ts,js,json}'",
     "build": "webpack --mode=production",
-    "prebuild": "rm -rf dist && tsc -p . && rm -rf dist/tests && rm -rf dist/src",
+    "prebuild": "rm -rf dist && tsc -p . && tsc -p tsconfig.cjs.json && rm -rf dist/tests && rm -rf dist/src",
     "prepublish": "npm run build && npm run test"
   },
   "license": "MIT",

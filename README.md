@@ -16,11 +16,25 @@ yarn add runtime-memcache
 
 ## Usage
 
-```javascript
-const createStore = require('runtime-memcache').default;
+### Node Environment (ES6 import/export)
 
-// or using es6 imports
+```javascript
 import createStore from 'runtime-memcache';
+```
+
+### Node Environment (CJS)
+
+```javascript
+const createStore = require('runtime-memcache');
+```
+
+### Browser (use a script tag)
+
+```html
+<script src="https://unpkg.com/runtime-memcache@2.0.0-beta.1/dist/umd/index.js"></script>
+<script>
+  console.log(RMC());
+</script>
 ```
 
 ## API
