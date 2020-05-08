@@ -43,7 +43,6 @@ Calling the `createStore` function returns an object with the following properti
 | Property      | Description                                                                                           | Type                            | Default |
 | ------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- | ------- |
 | `timeToClear` | Time in **milliseconds** for which the store will keep an item when the policy is `timeout` or `tlru` | Number                          | 7200000 |
-| `strategy`    | **Deprecated - use policy option**                                                                    | -                               | -       |
 | `policy`      | A Policy to evict items from the store                                                                | `timeout`, `lru`, `mru`, `tlru` | `lru`   |
 | `lruSize`     | Size of the cache store when the policy is `lru` or `tlru`                                            | Number                          | 500     |
 | `mruSize`     | Size of the cache store when the policy is `mru`                                                      | Number                          | 500     |
@@ -129,7 +128,7 @@ async function loginUser(userId: string) {
 - `npm run test` -- Runs tests, lint and build.
 - `npm run lint` -- Runs ESLint.
 - `npm run format` -- Reformats all of the `.ts` and `.tsx` files with Prettier.
-- `npm run build` -- Regenerates `lib` folder that gets included into NPM module.
+- `npm run build` -- Regenerates `dist` folder that gets included into NPM module.
 
 ## Todos
 
