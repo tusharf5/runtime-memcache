@@ -1,6 +1,6 @@
 # Changelog
 
-## v2.0.0-beta.1
+## v2.0.0
 
 Migrating to this version might require a few of the users you to channge the way how they were importing the libray.
 

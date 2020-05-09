@@ -31,9 +31,9 @@ const createStore = require('runtime-memcache');
 ### Browser (use a script tag)
 
 ```html
-<script src="https://unpkg.com/runtime-memcache@2.0.0-beta.1/dist/umd/index.js"></script>
+<script src="https://unpkg.com/runtime-memcache@2.0.0/dist/umd/index.js"></script>
 <script>
-  console.log(RMC());
+  const store = new RMStore();
 </script>
 ```
 

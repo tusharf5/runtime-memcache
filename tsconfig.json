@@ -2,10 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist/esm/",
     "sourceMap": true,
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": true,
-    "target": "es6",
+    "target": "es5",
     "declaration": true,
     "removeComments": false,
     "noImplicitAny": true,
