@@ -1,5 +1,5 @@
 const path = require('path');
-const CopyPlugin = require('copy-webpack-plugin');
+//const CopyPlugin = require('copy-webpack-plugin');
 
 const umd = {
   entry: {
@@ -17,7 +17,7 @@ const umd = {
   module: {
     rules: [{ test: /\.t|js$/, use: 'babel-loader' }],
   },
-  plugins: [new CopyPlugin([{ from: 'dist/esm/*.d.ts', to: '../umd/[name].[ext]' }])],
+  // plugins: [new CopyPlugin([{ from: 'dist/esm/*.d.ts', to: '../umd/[name].[ext]' }])],
 };
 
 module.exports = [umd];
