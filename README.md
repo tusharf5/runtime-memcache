@@ -16,7 +16,7 @@ yarn add runtime-memcache
 
 ## Usage
 
-### Node Environment (ES6 import/export)
+### Node Environment (ES6+ import/export)
 
 ```javascript
 import createStore from 'runtime-memcache';
@@ -28,11 +28,14 @@ import createStore from 'runtime-memcache';
 const createStore = require('runtime-memcache');
 ```
 
-### Browser (use a script tag)
+### Browser (use as a script tag)
 
 ```html
 <script src="https://unpkg.com/runtime-memcache@2.0.0/dist/umd/index.js"></script>
+<!-- OR JUST -->
+<script src="https://unpkg.com/runtime-memcache@2.0.0"></script>
 <script>
+  // RMStore is globaly set
   const store = new RMStore();
 </script>
 ```

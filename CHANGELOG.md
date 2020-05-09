@@ -2,8 +2,8 @@
 
 ## v2.0.0
 
-Migrating to this version might require a few of the users you to channge the way how they were importing the libray.
-
-- **[Breaking Change]** Changed the output dir from `lib` to `build`
-- **[Breaking Change]** Added separate esm and umd builds
+- Added support for UMD (Can directly run in the browser)
+- Added support for CJS require
+- **[Breaking Change]** Changed the output dir from `lib` to `dist`
+- **[Breaking Change]** Added separate `esm` and `umd` builds
 - **[Breaking Change]** Removed the `options.strategy` option
