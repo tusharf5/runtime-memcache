@@ -16,11 +16,28 @@ yarn add runtime-memcache
 
 ## Usage
 
-```javascript
-const createStore = require('runtime-memcache').default;
+### Node Environment (ES6+ import/export)
 
-// or using es6 imports
+```javascript
 import createStore from 'runtime-memcache';
+```
+
+### Node Environment (CJS)
+
+```javascript
+const createStore = require('runtime-memcache');
+```
+
+### Browser (use as a script tag)
+
+```html
+<script src="https://unpkg.com/runtime-memcache@2.0.0/dist/umd/index.js"></script>
+<!-- OR JUST -->
+<script src="https://unpkg.com/runtime-memcache@2.0.0"></script>
+<script>
+  // RMStore is globaly set
+  const store = new RMStore();
+</script>
 ```
 
 ## API
@@ -43,7 +60,6 @@ Calling the `createStore` function returns an object with the following properti
 | Property      | Description                                                                                           | Type                            | Default |
 | ------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------- | ------- |
 | `timeToClear` | Time in **milliseconds** for which the store will keep an item when the policy is `timeout` or `tlru` | Number                          | 7200000 |
-| `strategy`    | **Deprecated - use policy option**                                                                    | -                               | -       |
 | `policy`      | A Policy to evict items from the store                                                                | `timeout`, `lru`, `mru`, `tlru` | `lru`   |
 | `lruSize`     | Size of the cache store when the policy is `lru` or `tlru`                                            | Number                          | 500     |
 | `mruSize`     | Size of the cache store when the policy is `mru`                                                      | Number                          | 500     |
@@ -129,7 +145,7 @@ async function loginUser(userId: string) {
 - `npm run test` -- Runs tests, lint and build.
 - `npm run lint` -- Runs ESLint.
 - `npm run format` -- Reformats all of the `.ts` and `.tsx` files with Prettier.
-- `npm run build` -- Regenerates `lib` folder that gets included into NPM module.
+- `npm run build` -- Regenerates `dist` folder that gets included into NPM module.
 
 ## Todos
 

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "lib/",
+    "outDir": "./dist/esm/",
     "sourceMap": true,
     "module": "commonjs",
     "moduleResolution": "node",
@@ -12,5 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
     "pretty": true
-  }
+  },
+  "files": ["./src/index.ts"],
+  "include": ["./src/**/*.ts"]
 }

@@ -1,4 +1,4 @@
-const createStore = require('../lib/index').default;
+const createStore = require('../dist/umd/index');
 
 jest.setTimeout(30000);
 

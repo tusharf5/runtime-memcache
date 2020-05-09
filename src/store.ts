@@ -20,12 +20,7 @@ function createStore<K extends string | number | symbol = string, V = any>(
   if (typeof userConfig === 'object') {
     userConfigVerf = userConfig;
   }
-  if (userConfigVerf.strategy) {
-    userConfigVerf.policy = userConfigVerf.policy || userConfigVerf.strategy;
-    console.warn(
-      'runtime-memcache:: Use the `policy` config option instead of `strategy`. `strategy` option is deprecated and will be removed in the next major version',
-    );
-  }
+
   const config: Required<GlobalConfig> = Object.assign({}, defaultConfig, userConfigVerf);
 
   switch (config.policy) {
