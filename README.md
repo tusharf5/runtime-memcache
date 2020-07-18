@@ -1,8 +1,27 @@
-# runtime-memcache
+<p align="center">
+   <a href="https://github.com/tusharf5/runtime-memcache"><img src="http://randojs.com/images/shapeShifterGray.gif" alt="javascript cache" height="60"/></a>
+</p>
 
-![LISCENCE](https://img.shields.io/npm/l/runtime-memcache) ![NPM Downloads](https://img.shields.io/npm/dt/runtime-memcache) ![NPM Version](https://img.shields.io/npm/v/runtime-memcache) ![Size](https://img.shields.io/bundlephobia/minzip/runtime-memcache)
+<h1 align="center">runtime-memcache</h1>
 
-runtime-memcache is a **no dependency**, high performance, near optimal javascript caching library to store key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It is written in Typescript and supports many commonly used caching policies.
+<p align="center">A no dependency, <b>high performance</b>, near optimal javascript caching library</p>
+
+<p align="center">
+	<a href="https://github.com/tusharf5/runtime-memcache">
+     <img src="https://img.shields.io/npm/l/runtime-memcache" height="20"/>
+  </a>
+	<a href="https://github.com/tusharf5/runtime-memcache">
+     <img src="https://img.shields.io/npm/v/runtime-memcache" height="20"/>
+  </a>
+	<a href="https://github.com/tusharf5/runtime-memcache">
+     <img src="https://img.shields.io/npm/dt/runtime-memcache" height="20"/>
+  </a>
+	<a href="https://github.com/tusharf5/runtime-memcache">
+     <img src="https://img.shields.io/bundlephobia/minzip/runtime-memcache" height="20"/>
+  </a>
+</p><br/><br/>
+
+runtime-memcache is a caching library to store key-value cache store for small chunks of arbitrary data (strings, objects, numbers) from results of database calls, API calls, or etc. It is entirely written using Typescript and supports many commonly used caching policies.
 
 When creating a new cache store, you can specify the policy to evict items from the store. The default policy is `lru` (Least Recently Used)
 
@@ -151,6 +170,10 @@ async function loginUser(userId: string) {
 - `npm run lint` -- Runs ESLint.
 - `npm run format` -- Reformats all of the `.ts` and `.tsx` files with Prettier.
 - `npm run build` -- Regenerates `dist` folder that gets included into NPM module.
+
+## Under The Hood
+
+runtime-memcache uses a combination of modified doubly-linked lists and hashmap data structures to achieve O(1) search-time complexity for all the methods.
 
 ## Todos
 
