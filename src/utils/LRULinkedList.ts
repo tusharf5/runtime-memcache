@@ -1,6 +1,6 @@
 import { GlobalConfig } from '../types';
 
-class LinkedListNode<K extends string | number | symbol = string, V = any> {
+class LinkedListNode<K, V> {
   next: LinkedListNode<K, V> | null;
   data: V;
   id: K;
@@ -19,7 +19,7 @@ class LinkedListNode<K extends string | number | symbol = string, V = any> {
 // add O(1)
 // we add a new node to the head
 // on every access we move that node to head
-export class LRULinkedList<K extends string | number | symbol = string, V = any> {
+export class LRULinkedList<K, V> {
   __size: number = 0;
 
   HEAD: LinkedListNode<K, V> | null;

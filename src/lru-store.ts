@@ -1,9 +1,7 @@
 import { Cache, GlobalConfig } from './types';
 import { LRULinkedList } from './utils/LRULinkedList';
 
-function createStore<K extends string | number | symbol, V>(
-  config: Required<GlobalConfig>,
-): Cache<K> {
+function createStore<K, V>(config: Required<GlobalConfig>): Cache<K, V> {
   const store = new LRULinkedList<K, V>(config);
 
   function get(key: K) {

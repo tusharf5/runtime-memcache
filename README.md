@@ -118,15 +118,15 @@ const config = {
   timeToClear: 7200000, // 2 hours
 };
 
-interface CachedValue {
+interface Response {
   name: string;
 }
 
 type Keys = 'key1' | 'key2';
 
-const store = createStore<Keys, CachedValue>(config);
+const store = createStore<Keys, Response>(config);
 
-store.set('key1', {}); // store the object and associate it with the provided key
+store.set('key1', { name : 'name' }); // store the object and associate it with the provided key
 
 store.get('key1'); // retrieves the object associated with this key
 

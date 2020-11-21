@@ -631,7 +631,7 @@ describe('time aware lru store', () => {
     store.remove('9');
   });
 
-  test('should evict items as per the time aware aspect of policy ', callback => {
+  test('should evict items as per the time aware aspect of policy ', (callback) => {
     store = createStore({ policy: 'tlru', timeToClear: 2000 });
 
     store.set('1', 1);
@@ -743,7 +743,7 @@ describe('timeout store', () => {
     expect(store.size()).toBe(0);
   });
 
-  test('should evict items as per the policy', callback => {
+  test('should evict items as per the policy', (callback) => {
     store = createStore({ policy: 'timeout', timeToClear: 3000 });
 
     store.set('1', 1);

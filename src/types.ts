@@ -11,12 +11,12 @@ export interface CreateTimeoutResult<K> {
   cancel(key: K): void;
 }
 
-export interface Cache<K> {
+export interface Cache<K, V> {
   keys(): K[];
   size(): number;
-  has(key: K): any;
-  get(key: K): any;
-  set(key: K, value: any): void;
+  has(key: K): boolean;
+  get(key: K): V | null;
+  set(key: K, value: V): void;
   remove(key: K): void;
 }
 

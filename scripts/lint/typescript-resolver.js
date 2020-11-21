@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports.interfaceVersion = 2;
 
-module.exports.resolve = function(source, file, config) {
+module.exports.resolve = function (source, file, config) {
   if (resolve.isCore(source)) {
     return { found: true, path: null };
   }
