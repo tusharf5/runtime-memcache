@@ -192,7 +192,6 @@ export class MRULinkedList<K, V> {
     if (this.HEAD) {
       let currentNode = this.HEAD;
       while (currentNode) {
-        console.log(currentNode.id);
         currentNode = currentNode.next;
       }
     }
