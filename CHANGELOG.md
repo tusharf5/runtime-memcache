@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.1.1
+
+- Remove debug statements
+
 ## v2.1.0
 
 - Better type assertions on store
