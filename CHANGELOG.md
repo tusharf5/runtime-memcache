@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1.0
+
+- Better type assertions on store
+- Bump dev deps
+
 ## v2.0.0
 
 - Added support for UMD (Can directly run in the browser)
