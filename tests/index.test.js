@@ -29,8 +29,8 @@ describe('lru store', () => {
     expect(store.has('2')).toBe(false);
     expect(store.get('2')).toBe(null);
 
-    store.set('1', 1);
-    expect(store.get('1')).toBe(1);
+    store.set('1', 11);
+    expect(store.get('1')).toBe(11);
     expect(store.has('1')).toBe(true);
   });
 
@@ -403,8 +403,8 @@ describe('time aware lru store', () => {
     expect(store.has('2')).toBe(false);
     expect(store.get('2')).toBe(null);
 
-    store.set('1', 1);
-    expect(store.get('1')).toBe(1);
+    store.set('1', 11);
+    expect(store.get('1')).toBe(11);
     expect(store.has('1')).toBe(true);
 
     store.remove('1');

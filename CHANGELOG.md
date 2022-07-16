@@ -1,5 +1,16 @@
 # Changelog
 
+## v3.0.0
+
+### Breaking Changes
+
+- Creating a cache store now doesn't require a type for the keys. It is assumed to be a string.
+
+### Other Changes
+
+- Setting store.set on a key that already exists will also override the value.
+- Updates internal build dependencies
+
 ## v2.1.1
 
 - Remove debug statements

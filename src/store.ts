@@ -13,7 +13,7 @@ export const defaultConfig: Required<GlobalConfig> = {
   mruSize: 500,
 };
 
-function createStore<K extends string, V = any>(userConfig?: Config): Cache<K, V> {
+function createStore<V = any>(userConfig?: Config): Cache<V> {
   let userConfigVerf: Config = {};
   if (typeof userConfig === 'object') {
     userConfigVerf = userConfig;
@@ -23,13 +23,13 @@ function createStore<K extends string, V = any>(userConfig?: Config): Cache<K, V
 
   switch (config.policy) {
     case 'timeout':
-      return createTimeoutStore<K, V>(config);
+      return createTimeoutStore<V>(config);
     case 'lru':
-      return createLruStore<K, V>(config);
+      return createLruStore<V>(config);
     case 'mru':
-      return createMruStore<K, V>(config);
+      return createMruStore<V>(config);
     case 'tlru':
-      return createTLruStore<K, V>(config);
+      return createTLruStore<V>(config);
     default:
       throw new Error(config.policy + ' is not a supported policy.');
   }

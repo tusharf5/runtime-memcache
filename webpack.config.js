@@ -15,7 +15,9 @@ const umd = {
     umdNamedDefine: true,
   },
   module: {
-    rules: [{ test: /\.t|js$/, use: 'babel-loader' }],
+    rules: [
+      { test: /\.t|js$/, use: 'babel-loader', exclude: path.resolve(__dirname, 'node_modules') },
+    ],
   },
   // plugins: [new CopyPlugin([{ from: 'dist/esm/*.d.ts', to: '../umd/[name].[ext]' }])],
 };

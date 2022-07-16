@@ -6,18 +6,18 @@ export interface Config {
   mruSize?: number;
 }
 
-export interface CreateTimeoutResult<K> {
-  create(key: K, removeFromStore: (key: K) => any): void;
-  cancel(key: K): void;
+export interface CreateTimeoutResult {
+  create(key: string, removeFromStore: (key: string) => any): void;
+  cancel(key: string): void;
 }
 
-export interface Cache<K, V> {
-  keys(): K[];
+export interface Cache<V = any> {
+  keys(): string[];
   size(): number;
-  has(key: K): boolean;
-  get(key: K): V | null;
-  set(key: K, value: V): void;
-  remove(key: K): void;
+  has(key: string): boolean;
+  get(key: string): V | null;
+  set(key: string, value: V): void;
+  remove(key: string): void;
 }
 
 export interface GlobalConfig extends Config {}

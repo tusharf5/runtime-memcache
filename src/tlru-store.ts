@@ -1,10 +1,10 @@
 import { Cache, GlobalConfig } from './types';
 import { TLRULinkedList } from './utils/TLRULinkedList';
 
-function createStore<K, V>(config: Required<GlobalConfig>): Cache<K, V> {
-  const store = new TLRULinkedList<K, V>(config);
+function createStore<V>(config: Required<GlobalConfig>): Cache<V> {
+  const store = new TLRULinkedList<V>(config);
 
-  function get(key: K) {
+  function get(key: string): V {
     const val = store.get(key);
     if (val) {
       return val;
@@ -12,12 +12,12 @@ function createStore<K, V>(config: Required<GlobalConfig>): Cache<K, V> {
     return null;
   }
 
-  function remove(key: K) {
+  function remove(key: string) {
     store.remove(key);
     return true;
   }
 
-  function has(key: K) {
+  function has(key: string) {
     return store.has(key);
   }
 
@@ -25,11 +25,11 @@ function createStore<K, V>(config: Required<GlobalConfig>): Cache<K, V> {
     return store.size;
   }
 
-  function keys(): K[] {
+  function keys(): string[] {
     return store.keys();
   }
 
-  function set(key: K, value: any) {
+  function set(key: string, value: V) {
     store.addNodeToHead(key, value);
     return true;
   }

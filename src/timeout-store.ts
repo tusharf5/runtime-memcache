@@ -2,10 +2,10 @@ import { Cache, GlobalConfig } from './types';
 
 import { createTimeAwareMapObserver } from './utils/TimeAwareMap';
 
-function createStore<K, V>(config: GlobalConfig): Cache<K, V> {
-  const store = new Map<K, any>();
-  const timer = createTimeAwareMapObserver<K>(config.timeToClear);
-  function get(key: K) {
+function createStore<V>(config: GlobalConfig): Cache<V> {
+  const store = new Map<string, any>();
+  const timer = createTimeAwareMapObserver(config.timeToClear);
+  function get(key: string): V {
     const val = store.get(key);
     if (val) {
       return val;
@@ -13,7 +13,7 @@ function createStore<K, V>(config: GlobalConfig): Cache<K, V> {
     return null;
   }
 
-  function remove(key: K) {
+  function remove(key: string) {
     store.delete(key);
     timer.cancel(key);
     return true;
@@ -23,15 +23,15 @@ function createStore<K, V>(config: GlobalConfig): Cache<K, V> {
     return store.size;
   }
 
-  function has(key: K): boolean {
+  function has(key: string): boolean {
     return store.has(key);
   }
 
-  function keys(): K[] {
+  function keys(): string[] {
     return Array.from(store.keys());
   }
 
-  function set(key: K, value: V) {
+  function set(key: string, value: V) {
     store.set(key, value);
     timer.create(key, remove);
     return true;

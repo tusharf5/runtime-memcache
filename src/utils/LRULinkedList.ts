@@ -1,12 +1,12 @@
 import { GlobalConfig } from '../types';
 
-class LinkedListNode<K, V> {
-  next: LinkedListNode<K, V> | null;
+class LinkedListNode<V> {
+  next: LinkedListNode<V> | null;
   data: V;
-  id: K;
-  prev: LinkedListNode<K, V> | null;
+  id: string;
+  prev: LinkedListNode<V> | null;
 
-  constructor(id: K, data: any) {
+  constructor(id: string, data: any) {
     this.next = null;
     this.data = data;
     this.id = id;
@@ -19,13 +19,13 @@ class LinkedListNode<K, V> {
 // add O(1)
 // we add a new node to the head
 // on every access we move that node to head
-export class LRULinkedList<K, V> {
+export class LRULinkedList<V> {
   __size: number = 0;
 
-  HEAD: LinkedListNode<K, V> | null;
-  TAIL: LinkedListNode<K, V> | null;
+  HEAD: LinkedListNode<V> | null;
+  TAIL: LinkedListNode<V> | null;
   limit: number = 0;
-  positions: Map<K, LinkedListNode<K, V>> = new Map<K, any>();
+  positions: Map<string, LinkedListNode<V>> = new Map<string, any>();
 
   get size() {
     return this.__size;
@@ -38,7 +38,7 @@ export class LRULinkedList<K, V> {
     }
   }
 
-  moveToHead(node: LinkedListNode<K, V>): LinkedListNode<K, V> | null {
+  moveToHead(node: LinkedListNode<V>): LinkedListNode<V> | null {
     const nodeToMove = this.remove(node.id);
     if (nodeToMove) {
       const newNode = this.addNodeToHead(nodeToMove.id, nodeToMove.data);
@@ -47,14 +47,16 @@ export class LRULinkedList<K, V> {
     return null;
   }
 
-  addNodeToHead(id: K, data: V): LinkedListNode<K, V> {
+  addNodeToHead(id: string, data: V): LinkedListNode<V> {
     if (this.positions.has(id)) {
       const node = this.moveToHead(this.positions.get(id));
+      // overrite the data
+      this.positions.get(id).data = data;
       return node;
     }
     if (this.HEAD) {
       let oldHead = this.HEAD;
-      const newHead = new LinkedListNode<K, V>(id, data);
+      const newHead = new LinkedListNode<V>(id, data);
       newHead.next = oldHead;
       newHead.prev = null;
       oldHead.prev = newHead;
@@ -63,7 +65,7 @@ export class LRULinkedList<K, V> {
       this.size++;
       return newHead;
     } else {
-      const newNode = new LinkedListNode<K, V>(id, data);
+      const newNode = new LinkedListNode<V>(id, data);
       this.HEAD = newNode;
       if (!this.TAIL) {
         this.TAIL = newNode;
@@ -74,7 +76,7 @@ export class LRULinkedList<K, V> {
     }
   }
 
-  remove(id: K): LinkedListNode<K, V> | null {
+  remove(id: string): LinkedListNode<V> | null {
     if (!this.HEAD) {
       return null;
     }
@@ -127,7 +129,7 @@ export class LRULinkedList<K, V> {
     return null;
   }
 
-  keys(): K[] {
+  keys(): string[] {
     return Array.from(this.positions.keys());
   }
 
@@ -143,7 +145,7 @@ export class LRULinkedList<K, V> {
     this.TAIL = currentNode;
   }
 
-  has(id: K): boolean {
+  has(id: string): boolean {
     if (this.positions.has(id)) {
       return true;
     }
@@ -159,7 +161,7 @@ export class LRULinkedList<K, V> {
     }
   }
 
-  get(id: K): V | null {
+  get(id: string): V | null {
     const node = this.positions.get(id);
     if (node) {
       const newHeadNode = this.moveToHead(node);

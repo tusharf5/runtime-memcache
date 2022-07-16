@@ -1,15 +1,15 @@
 import { CreateTimeoutResult } from '../types';
 
-export const createTimeAwareMapObserver = <K>(timeToClear: number): CreateTimeoutResult<K> => {
-  const timeouts = new Map<K, NodeJS.Timer>();
+export const createTimeAwareMapObserver = (timeToClear: number): CreateTimeoutResult => {
+  const timeouts = new Map<string, NodeJS.Timer>();
   return {
-    create: (key: K, removeFromStore: (key: K) => any) => {
+    create: (key: string, removeFromStore: (key: string) => any) => {
       const timer = setTimeout(() => {
         removeFromStore(key);
       }, timeToClear);
       timeouts.set(key, timer);
     },
-    cancel: (key: K) => {
+    cancel: (key: string) => {
       if (timeouts.has(key)) {
         const timer = timeouts.get(key);
         timeouts.delete(key);

@@ -7,16 +7,16 @@
 <p align="center">A no dependency, <b>high performance</b>, near optimal javascript caching library</p>
 
 <p align="center">
-	<a href="https://github.com/tusharf5/runtime-memcache">
+ <a href="https://github.com/tusharf5/runtime-memcache">
      <img src="https://img.shields.io/npm/l/runtime-memcache" height="20"/>
   </a>
-	<a href="https://github.com/tusharf5/runtime-memcache">
+ <a href="https://github.com/tusharf5/runtime-memcache">
      <img src="https://img.shields.io/npm/v/runtime-memcache" height="20"/>
   </a>
-	<a href="https://github.com/tusharf5/runtime-memcache">
+ <a href="https://github.com/tusharf5/runtime-memcache">
      <img src="https://img.shields.io/npm/dt/runtime-memcache" height="20"/>
   </a>
-	<a href="https://github.com/tusharf5/runtime-memcache">
+ <a href="https://github.com/tusharf5/runtime-memcache">
      <img src="https://img.shields.io/bundlephobia/minzip/runtime-memcache" height="20"/>
   </a>
 </p><br/><br/>
@@ -126,7 +126,7 @@ type Keys = 'key1' | 'key2';
 
 const store = createStore<Keys, Response>(config);
 
-store.set('key1', { name : 'name' }); // store the object and associate it with the provided key
+store.set('key1', { name: 'name' }); // store the object and associate it with the provided key
 
 store.get('key1'); // retrieves the object associated with this key
 
@@ -142,23 +142,27 @@ store.remove('key1'); // deletes the object associated with this key
 </br>
 
 ```typescript
-import createStore from 'runtime-memcache';
+import createStore, { Config } from 'runtime-memcache';
 
-const config = {
+const config: Config = {
   policy: 'lru',
   lruSize: 300, // cache a maximum of 300 users at a given time
 };
 
-const userCache = createStore(config);
+interface User {
+  name: string;
+}
+
+const userCache = createStore<User>(config);
 
 async function loginUser(userId: string) {
-  if (userCache.has(id)) {
-    return userCache.get(id);
+  if (userCache.has(userId)) {
+    return userCache.get(userId);
   }
 
-  const user = await UserService.getUser(id);
+  const user = await UserService.getUser(userId);
 
-  userCache.set(id, user);
+  userCache.set(userId, user);
 
   return user;
 }
@@ -183,5 +187,6 @@ runtime-memcache uses a combination of modified doubly-linked lists and hashmap 
 - Least Frequently Used Policy (LFU)
 - <s>Time Aware Least Recently Used Policy (TLRU)</s>
 - Random Eviction Policy (RR)
+- Add a warmup period for new items
 
 For more information on caching policies read [this](https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU)
