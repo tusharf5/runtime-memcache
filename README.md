@@ -38,8 +38,6 @@ npm install --save runtime-memcache
 yarn add runtime-memcache
 ```
 
-## Usage
-
 ### Node Environment (ES6+ import/export)
 
 ```javascript
@@ -55,9 +53,9 @@ const createStore = require('runtime-memcache');
 ### Browser (use as a script tag)
 
 ```html
-<script src="https://unpkg.com/runtime-memcache@2.0.0/dist/umd/index.js"></script>
+<script src="https://unpkg.com/runtime-memcache@3.0.0/dist/umd/index.js"></script>
 <!-- OR JUST -->
-<script src="https://unpkg.com/runtime-memcache@2.0.0"></script>
+<script src="https://unpkg.com/runtime-memcache@3.0.0"></script>
 <script>
   // RMStore is globaly set
   const store = new RMStore();
@@ -108,38 +106,9 @@ Following caching policies are supported.
 | tlru    | `set`, `get`, `remove` | O(1), O(1), O(1) |
 | mru     | `set`, `get`, `remove` | O(1), O(1), O(1) |
 
-## Example
+## Usage
 
-```typescript
-import createStore from 'runtime-memcache';
-
-const config = {
-  policy: 'timeout',
-  timeToClear: 7200000, // 2 hours
-};
-
-interface Response {
-  name: string;
-}
-
-type Keys = 'key1' | 'key2';
-
-const store = createStore<Keys, Response>(config);
-
-store.set('key1', { name: 'name' }); // store the object and associate it with the provided key
-
-store.get('key1'); // retrieves the object associated with this key
-
-store.has('key1'); // returns true
-
-store.size(); // returns 1
-
-store.keys(); // returns ['key1']
-
-store.remove('key1'); // deletes the object associated with this key
-```
-
-</br>
+### Typescript
 
 ```typescript
 import createStore, { Config } from 'runtime-memcache';
@@ -160,12 +129,39 @@ async function loginUser(userId: string) {
     return userCache.get(userId);
   }
 
-  const user = await UserService.getUser(userId);
+  const user: User = await UserService.getUser(userId);
 
   userCache.set(userId, user);
 
   return user;
 }
+```
+
+### Javascript
+
+```javascript
+import createStore from 'runtime-memcache';
+
+const config = {
+  policy: 'timeout',
+  timeToClear: 7200000, // 2 hours
+};
+
+type Keys = 'key1' | 'key2';
+
+const store = createStore(config);
+
+store.set('key1', { name: 'name' }); // store the object and associate it with the provided key
+
+store.get('key1'); // retrieves the object associated with this key
+
+store.has('key1'); // returns true
+
+store.size(); // returns 1
+
+store.keys(); // returns ['key1']
+
+store.remove('key1'); // deletes the object associated with this key
 ```
 
 ## NPM Script Commands

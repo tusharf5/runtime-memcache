@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.0
+
+- Updated Readme.md
+
 ## v3.0.0
 
 ### Breaking Changes

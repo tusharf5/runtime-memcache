@@ -1,6 +1,6 @@
 {
   "name": "runtime-memcache",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "A no dependency javascript runtime key-value cache store for small chunks of arbitrary data (strings, objects, numbers)",
   "homepage": "https://github.com/tusharf5/runtime-memcache",
   "main": "./dist/umd/index.js",
